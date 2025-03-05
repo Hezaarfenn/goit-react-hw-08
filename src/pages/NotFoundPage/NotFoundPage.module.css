@@ -1,0 +1,29 @@
+.notFoundContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background-color: #f8f9fa;
+  text-align: center;
+}
+
+.notFoundContainer h1 {
+  font-size: 3rem;
+  color: #dc3545;
+}
+
+.notFoundContainer p {
+  font-size: 1.25rem;
+  margin-bottom: 20px;
+}
+
+.homeLink {
+  font-size: 1.125rem;
+  color: #007bff;
+  text-decoration: none;
+}
+
+.homeLink:hover {
+  text-decoration: underline;
+}

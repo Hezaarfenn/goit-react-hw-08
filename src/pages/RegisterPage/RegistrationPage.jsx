@@ -13,7 +13,7 @@ const RegistrationPage = () => {
     <div>
       <div>
         <button onClick={handleGoBack} className={styles.goBackButton}>
-          Go Back
+          Geri
         </button>
       </div>
       <div className={styles.container}>

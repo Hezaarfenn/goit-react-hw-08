@@ -23,14 +23,11 @@ const RegistrationForm = () => {
 
   const handleSubmit = async (values, { setSubmitting, setErrors }) => {
     try {
-      // Dispatch işlemi
       const result = await dispatch(register(values));
 
-      // Eğer register işlemi başarılıysa
       if (result.payload) {
         navigate("/login");
       } else {
-        // Sunucudan gelen hata mesajını göster
         setErrors({
           submit: result.error
             ? result.error.message
@@ -38,12 +35,10 @@ const RegistrationForm = () => {
         });
       }
     } catch (error) {
-      // Yakalanan hatayı göster
       setErrors({
         submit: error.message || "Beklenmedik bir hata oluştu",
       });
     } finally {
-      // Submit durumunu sonlandır
       setSubmitting(false);
     }
   };

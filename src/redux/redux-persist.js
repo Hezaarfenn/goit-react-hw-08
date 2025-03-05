@@ -1,16 +1,14 @@
-import storage from "redux-persist/lib/storage"; // Redux Persist'in default storage'ı kullan.
+import storage from "redux-persist/lib/storage";
 
-// Token'ı saklamak için fonksiyon
 export const persistToken = async (token) => {
   if (token) {
-    await storage.setItem("authToken", token); // Token'ı saklıyoruz
+    await storage.setItem("authToken", token);
   } else {
-    await storage.removeItem("authToken"); // Token yoksa kaldırıyoruz
+    await storage.removeItem("authToken");
   }
 };
 
-// Token'ı almak için fonksiyon
 export const getTokenFromStorage = async () => {
-  const token = await storage.getItem("authToken"); // Token'ı alıyoruz
+  const token = await storage.getItem("authToken");
   return token;
 };

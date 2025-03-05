@@ -4,6 +4,7 @@ import LoginPage from "./pages/LoginPage/LoginPage";
 import ContactsPage from "./pages/ContactsPage/ContactsPage";
 import RegistrationPage from "./pages/RegisterPage/RegistrationPage";
 import PrivateRoute from "./components/Router/PrivateRoute";
+import NotFoundPage from "./pages/NotFoundPage/NotFoundPage";
 import { useSelector } from "react-redux";
 import { selectIsLoggedIn } from "./redux/auth/authSelectors";
 
@@ -28,6 +29,7 @@ function App() {
             )
           }
         />
+        <Route path="*" element={<NotFoundPage />} />
       </Routes>
     </Router>
   );

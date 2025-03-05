@@ -8,7 +8,7 @@ const UserMenu = () => {
   return (
     <div>
       <p>Welcome, {user.name}</p>
-      <LogoutButton /> {/* LogoutButton'ı burada kullanıyoruz */}
+      <LogoutButton />
     </div>
   );
 };
