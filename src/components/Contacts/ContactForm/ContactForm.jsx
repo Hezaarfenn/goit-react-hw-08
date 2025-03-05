@@ -2,6 +2,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { addContact } from "../../../redux/contacts/contactsOperations";
 import { useFormik } from "formik";
 import * as Yup from "yup";
+import styles from "./ContactForm.module.css";
 
 const ContactForm = () => {
   const dispatch = useDispatch();
@@ -35,7 +36,7 @@ const ContactForm = () => {
   });
 
   return (
-    <form onSubmit={formik.handleSubmit}>
+    <form onSubmit={formik.handleSubmit} className={styles.contactForm}>
       <label>
         İsim:
         <input

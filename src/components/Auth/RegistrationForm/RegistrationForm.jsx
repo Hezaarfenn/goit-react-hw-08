@@ -3,6 +3,7 @@ import { register } from "../../../redux/auth/authOperations";
 import * as Yup from "yup";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import styles from "./RegistrationForm.module.css";
 
 const RegistrationForm = () => {
   const dispatch = useDispatch();
@@ -10,91 +11,110 @@ const RegistrationForm = () => {
 
   const validationSchema = Yup.object({
     name: Yup.string()
-      .matches(/^[a-zA-Z\s]*$/, "Only letters are allowed")
-      .required(),
-    email: Yup.string().required(),
-    password: Yup.string().required().min(3),
-    confirmPassword: Yup.string()
-      .oneOf([Yup.ref("password"), null], "Passwords must match")
-      .required("Confirm Password is required"),
+      .matches(/^[a-zA-Z\s]*$/, "Yalnızca harfler izin verilir")
+      .required("İsim alanı zorunludur"),
+    email: Yup.string()
+      .email("Geçerli bir email adresi girin")
+      .required("Email alanı zorunludur"),
+    password: Yup.string()
+      .required("Şifre alanı zorunludur")
+      .min(3, "Şifre en az 3 karakter olmalıdır"),
   });
 
-  const initialValues = {
-    name: "",
-    email: "",
-    password: "",
-    confirmPassword: "",
-  };
-
-  const handleSubmit = async (values) => {
+  const handleSubmit = async (values, { setSubmitting, setErrors }) => {
     try {
-      await dispatch(register(values));
-      navigate("/login");
+      // Dispatch işlemi
+      const result = await dispatch(register(values));
+
+      // Eğer register işlemi başarılıysa
+      if (result.payload) {
+        navigate("/login");
+      } else {
+        // Sunucudan gelen hata mesajını göster
+        setErrors({
+          submit: result.error
+            ? result.error.message
+            : "Kayıt sırasında bir hata oluştu",
+        });
+      }
     } catch (error) {
-      alert(error.message);
+      // Yakalanan hatayı göster
+      setErrors({
+        submit: error.message || "Beklenmedik bir hata oluştu",
+      });
+    } finally {
+      // Submit durumunu sonlandır
+      setSubmitting(false);
     }
   };
 
   return (
-    <div>
-      <Formik
-        validationSchema={validationSchema}
-        initialValues={initialValues}
-        onSubmit={handleSubmit}
-      >
-        {({ values, handleChange }) => {
-          return (
-            <Form>
-              <div>
-                <Field
-                  name="name"
-                  value={values.name}
-                  placeholder="name"
-                  type="text"
-                  autoComplete="name"
-                  onChange={handleChange}
-                />
-                <ErrorMessage name="name" component="div" />
-              </div>
-              <div>
-                <Field
-                  name="email"
-                  value={values.email}
-                  placeholder="email"
-                  type="email"
-                  autoComplete="email"
-                  onChange={handleChange}
-                />
-                <ErrorMessage name="email" component="div" />
-              </div>
-              <div>
-                <Field
-                  name="password"
-                  value={values.password}
-                  placeholder="password"
-                  type="password"
-                  autoComplete="current-password"
-                  onChange={handleChange}
-                />
-                <ErrorMessage name="password" component="div" />
-              </div>
-              <div>
-                <Field
-                  name="confirmPassword"
-                  value={values.confirmPassword}
-                  placeholder="confirm password"
-                  type="password"
-                  autoComplete="current-password"
-                  onChange={handleChange}
-                />
-                <ErrorMessage name="password" component="div" />
-              </div>
-              <button type="submit">Register</button>
-            </Form>
-          );
-        }}
-      </Formik>
-    </div>
+    <Formik
+      initialValues={{ name: "", email: "", password: "" }}
+      validationSchema={validationSchema}
+      onSubmit={handleSubmit}
+    >
+      {({ isSubmitting, errors }) => (
+        <Form className={styles.registerForm}>
+          <div>
+            <Field
+              name="name"
+              placeholder="İsim"
+              type="text"
+              autoComplete="name"
+              className={styles.registerInput}
+            />
+            <ErrorMessage
+              name="name"
+              component="div"
+              className={styles.errorMessage}
+            />
+          </div>
+
+          <div>
+            <Field
+              name="email"
+              placeholder="Email"
+              type="email"
+              autoComplete="email"
+              className={styles.registerInput}
+            />
+            <ErrorMessage
+              name="email"
+              component="div"
+              className={styles.errorMessage}
+            />
+          </div>
+
+          <div>
+            <Field
+              name="password"
+              placeholder="Şifre"
+              type="password"
+              autoComplete="current-password"
+              className={styles.registerInput}
+            />
+            <ErrorMessage
+              name="password"
+              component="div"
+              className={styles.errorMessage}
+            />
+          </div>
+
+          {errors.submit && (
+            <div className={styles.errorMessage}>{errors.submit}</div>
+          )}
+
+          <button
+            type="submit"
+            disabled={isSubmitting}
+            className={styles.registerButton}
+          >
+            {isSubmitting ? "Kaydediliyor..." : "Kayıt Ol"}
+          </button>
+        </Form>
+      )}
+    </Formik>
   );
 };
 

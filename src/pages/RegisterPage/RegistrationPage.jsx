@@ -1,5 +1,6 @@
 import RegistrationForm from "../../components/Auth/RegistrationForm/RegistrationForm";
 import { useNavigate } from "react-router-dom";
+import styles from "./RegisterPage.module.css";
 
 const RegistrationPage = () => {
   const navigate = useNavigate();
@@ -11,10 +12,12 @@ const RegistrationPage = () => {
   return (
     <div>
       <div>
-        <button onClick={handleGoBack}>Geri</button>
+        <button onClick={handleGoBack} className={styles.goBackButton}>
+          Go Back
+        </button>
       </div>
-      <div>
-        <h1>Registration Page</h1>
+      <div className={styles.container}>
+        <h1>Kayıt Ol</h1>
         <RegistrationForm />
       </div>
     </div>

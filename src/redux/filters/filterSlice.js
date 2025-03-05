@@ -1,11 +1,14 @@
-// redux/filter/filterSlice.js
 import { createSlice } from "@reduxjs/toolkit";
+
+const initialState = { filter: "" }; // ✅ Boş string ile başlatıyoruz
 
 const filterSlice = createSlice({
   name: "filter",
-  initialState: "",
+  initialState,
   reducers: {
-    setFilter: (state, action) => action.payload,
+    setFilter: (state, action) => {
+      state.filter = action.payload;
+    },
   },
 });
 

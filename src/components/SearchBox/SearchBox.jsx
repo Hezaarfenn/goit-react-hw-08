@@ -2,6 +2,7 @@
 import { useDispatch, useSelector } from "react-redux";
 import { setFilter } from "../../redux/filters/filterSlice";
 import { selectFilter } from "../../redux/filters/filtersSelectors";
+import styles from "./SearchBox.module.css";
 
 const SearchBox = () => {
   const dispatch = useDispatch();
@@ -14,8 +15,9 @@ const SearchBox = () => {
   return (
     <input
       type="text"
-      placeholder="Kişi Ara..."
+      placeholder="Kişilerde Ara"
       value={filter}
+      className={styles.searchInput}
       onChange={handleChange}
     />
   );

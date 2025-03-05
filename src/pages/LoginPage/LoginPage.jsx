@@ -1,5 +1,6 @@
 import LoginForm from "../../components/Auth/LoginForm/LoginForm";
 import { useNavigate } from "react-router-dom";
+import styles from "./LoginPage.module.css";
 
 const LoginPage = () => {
   const navigate = useNavigate();
@@ -11,10 +12,12 @@ const LoginPage = () => {
   return (
     <div>
       <div>
-        <button onClick={handleGoBack}>Geri</button>
+        <button onClick={handleGoBack} className={styles.goBackButton}>
+          Geri
+        </button>
       </div>
 
-      <div>
+      <div className={styles.loginContainer}>
         <h2>Giriş Yap</h2>
         <LoginForm />
       </div>

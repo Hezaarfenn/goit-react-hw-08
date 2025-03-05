@@ -1,8 +1,9 @@
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import { useDispatch } from "react-redux";
-import login from "../../../redux/auth/authSlice";
+import { login } from "../../../redux/auth/authOperations";
 import { useNavigate } from "react-router-dom";
+import styles from "./LoginForm.module.css";
 
 const LoginForm = () => {
   const dispatch = useDispatch();
@@ -37,14 +38,14 @@ const LoginForm = () => {
       validationSchema={validationSchema}
       onSubmit={handleSubmit}
     >
-      <Form>
-        <div>
+      <Form className={styles.formContainer}>
+        <div className={styles.formContent}>
           <label htmlFor="email">E-posta:</label>
           <Field type="email" name="email" id="email" />
           <ErrorMessage name="email" component="div" className="error" />
         </div>
 
-        <div>
+        <div className={styles.formContent}>
           <label htmlFor="password">Şifre:</label>
           <Field type="password" name="password" id="password" />
           <ErrorMessage name="password" component="div" className="error" />
